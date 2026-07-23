@@ -1,7 +1,7 @@
 export const EmptyBorder = {
   topLeft: "",
   bottomLeft: "",
-  vertical:"",
+  vertical: "",
   horizontal: "",
   topRight: "",
   bottomRight: "",
@@ -10,7 +10,7 @@ export const EmptyBorder = {
   cross: "",
   leftT: "",
   right: "",
-  rightT:"",
+  rightT: "",
 };
 
 export const SplitBorder = {

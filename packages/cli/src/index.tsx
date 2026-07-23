@@ -15,10 +15,10 @@ function App() {
     >
       <Header />
       <box width="100%" maxWidth={78} paddingX={2}>
-        <InputBar onSubmit={() => {} }/>
+        <InputBar onSubmit={() => { }} />
       </box>
     </box>
-    );
+  );
 }
 
 const renderer = await createCliRenderer();

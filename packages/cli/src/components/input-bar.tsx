@@ -1,6 +1,7 @@
 import type { KeyBinding } from "@opentui/core";
 import { EmptyBorder } from "./border";
 import { StatusBar } from "./status-bar";
+import { CommandMenu } from "./command-menu";
 
 type Props = {
   onSubmit: (text: string) => void;
@@ -8,10 +9,10 @@ type Props = {
 };
 
 export const TEXTAREA_KEY_BINDINGS: KeyBinding[] = [
-	{ name: "return", action: "submit" },
-	{ name: "enter", action: "submit" },
-	{ name: "return", shift: true, action: "newline" },
-	{ name: "enter", shift: true, action: "newline" },
+  { name: "return", action: "submit" },
+  { name: "enter", action: "submit" },
+  { name: "return", shift: true, action: "newline" },
+  { name: "enter", shift: true, action: "newline" },
 ];
 
 export function InputBar({ onSubmit, disabled }: Props) {
@@ -23,7 +24,7 @@ export function InputBar({ onSubmit, disabled }: Props) {
         customBorderChars={{
           ...EmptyBorder,
           vertical: "|",
-          bottomLeft:"|"
+          bottomLeft: "|"
         }}
         width="100%"
       >
@@ -36,6 +37,18 @@ export function InputBar({ onSubmit, disabled }: Props) {
           width="100%"
           gap={1}
         >
+          {true && (
+            <box
+              position="absolute"
+              bottom="100%"
+              left={0}
+              width="100%"
+              backgroundColor="#1A1A24"
+              zIndex={10}
+            >
+              <CommandMenu query="" />
+            </box>
+          )}
           <textarea
             focused={!disabled}
             keyBindings={TEXTAREA_KEY_BINDINGS}
