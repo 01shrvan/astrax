@@ -56,7 +56,7 @@ export function CommandMenu({
                         </box>
                     </box>
                 )
-            })}:
+            })}
         </scrollbox>
     )
 };

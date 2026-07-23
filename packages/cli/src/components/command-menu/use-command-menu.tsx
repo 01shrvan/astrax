@@ -39,6 +39,13 @@ export function UseCommandMenu(): UseCommandMenuReturn {
         } else {
             setShowCommandMenu(false);
         }
+    }
 
+    const resolveCommand = (index: number): Command | undefined => {
+        const command = filteredCommands[index];
+        if (command) {
+            setShowCommandMenu(false)
+        }
+        return command
     }
 };
