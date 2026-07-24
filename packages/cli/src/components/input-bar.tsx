@@ -35,7 +35,20 @@ export function InputBar({ onSubmit, disabled }: Props) {
     setSelectedIndex,
   } = useCommandMenu();
 
-  
+  const handleCommandExecute = useCallback(
+    (index: number) => {
+      const command = resolveCommand(index);
+      handleCommand(command);
+    },
+    [],
+  );
+
+  const handleTextareaContentChange = useCallback(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    handleContentChange(textarea.plainText);
+  }, [])
 
   const handleSubmit = useCallback(() => {
     if (disabled) return;
@@ -118,12 +131,14 @@ export function InputBar({ onSubmit, disabled }: Props) {
               backgroundColor="#1A1A24"
               zIndex={10}
             >
-              <CommandMenu query="" />
+              <CommandMenu query={commandQuery} selectedIndex={selectedIndex} scrollRef={scrollRef} onSelect={setSelectedIndex} onExecute={handleCommandExecute} />
             </box>
           )}
           <textarea
+            ref={textareaRef}
             focused={!disabled}
             keyBindings={TEXTAREA_KEY_BINDINGS}
+            onContentChange={handleTextareaContentChange}
             placeholder={`start whipping...!`}
           />
           <StatusBar />

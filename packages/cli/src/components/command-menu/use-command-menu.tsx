@@ -8,7 +8,7 @@ type UseCommandMenuReturn = {
   showCommandMenu: boolean;
   commandQuery: string;
   selectedIndex: number;
-  scrollRef: RefObject<ScrollBarRenderable> | null;
+  scrollRef: RefObject<ScrollBarRenderable | null>;
   handleContentChange: (text: string) => void;
   resolveCommand: (text: string) => Command | undefined;
   setSelectedIndex: (index: number) => void;
@@ -86,14 +86,15 @@ export function useCommandMenu(): UseCommandMenuReturn {
       })
     }
 
-    return {
-      showCommandMenu,
-      commandQuery,
-      selectedIndex,
-      scrollRef,
-      handleContentChange,
-      resolveCommand,
-      setSelectedIndex,
-    };
   })
+
+  return {
+    showCommandMenu,
+    commandQuery,
+    selectedIndex,
+    scrollRef,
+    handleContentChange,
+    resolveCommand,
+    setSelectedIndex,
+  };
 };
