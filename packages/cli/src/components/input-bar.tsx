@@ -76,7 +76,7 @@ export function InputBar({ onSubmit, disabled }: Props) {
         exit: () => renderer.destroy(),
       });
     } else {
-      textarea.insertText(command.value + "");
+      textarea.insertText(command.value + " ");
     }
   }, [renderer]);
 
@@ -97,7 +97,6 @@ export function InputBar({ onSubmit, disabled }: Props) {
       handleCommand(command);
       return;
     }
-
     handleSubmit();
   };
 
@@ -108,8 +107,8 @@ export function InputBar({ onSubmit, disabled }: Props) {
         borderColor="cyan"
         customBorderChars={{
           ...EmptyBorder,
-          vertical: "|",
-          bottomLeft: "|"
+          vertical: "│",
+          bottomLeft: "│"
         }}
         width="100%"
       >
@@ -122,7 +121,7 @@ export function InputBar({ onSubmit, disabled }: Props) {
           width="100%"
           gap={1}
         >
-          {true && (
+          {showCommandMenu && (
             <box
               position="absolute"
               bottom="100%"

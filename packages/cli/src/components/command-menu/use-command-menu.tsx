@@ -34,7 +34,7 @@ export function useCommandMenu(): UseCommandMenuReturn {
     }
 
     const prefix = text.startsWith("/") ? "/" + text.slice(1) : null;
-    if (prefix !== null && !prefix.includes("")) {
+    if (prefix !== null && !text.includes(" ")) {
       setShowCommandMenu(true);
     } else {
       setShowCommandMenu(false);
@@ -77,7 +77,7 @@ export function useCommandMenu(): UseCommandMenuReturn {
         const sb = scrollRef.current;
         if (sb) {
           const viewportHeight = sb.viewport.height;
-          const visibleHeight = sb.scrollTop + viewportHeight - 1
+          const visibleEnd = sb.scrollTop + viewportHeight - 1
           if (newIndex > visibleEnd) {
             sb.scrollTo(newIndex - viewportHeight + 1)
           }
