@@ -3,7 +3,7 @@ import React, {
     useContext,
     useRef,
     useState,
-    useCallback
+    useCallback,
 } from "react";
 import { useKeyboard, useRenderer } from "@opentui/react";
 
@@ -16,9 +16,15 @@ type KeyboardLayerContextValue = {
     setResponder: (id: string, responder: Responder | null) => void;
 };
 
-const KeyboardLayerContext = createContext<KeyboardLayerContextValue | null>(null);
+const KeyboardLayerContext = createContext<KeyboardLayerContextValue | null>(
+    null,
+);
 
-export function KeyboardLayerProvider({ children }: { children: React.ReactNode }) {
+export function KeyboardLayerProvider({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     const [stack, setStack] = useState<string[]>(["base"]);
     const stackRef = useRef(stack);
     stackRef.current = stack;
@@ -48,6 +54,33 @@ export function KeyboardLayerProvider({ children }: { children: React.ReactNode 
     const isTopLayer = useCallback(
         (id: string) => {
             return stack.length === 0 || stack[stack.length - 1] === id;
-        }, [stack],
+        },
+        [stack],
     );
-};
+
+    const setResponder = useCallback(
+        (id: string, responder: Responder | null) => {
+            if (responder) {
+                responders.current.set(id, responder);
+            } else {
+                responders.current.delete(id);
+            }
+        },
+        [],
+    );
+
+    useKeyboard((key) => {
+        if (!key.ctrl || key.name !== "c") return;
+
+        const currentStack = stackRef.current;
+        for (let i = currentStack.length - 1; i >= 0; i--) {
+            const layerId = currentStack[i];
+            const responder = responders.current.get(layerId);
+            if (responder && responder()) {
+                return;
+            }
+        }
+
+        renderer.destroy();
+    });
+}
