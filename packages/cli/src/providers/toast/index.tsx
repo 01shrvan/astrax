@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
 import { useTerminalDimensions } from "@opentui/react";
 import type { ToastOptions, ToastVariant } from "./types";
 import { DEFAULT_DURATION } from "./types";
+import { SplitBorderChars } from "../../components/border";
 
 export type ToastContextValue = {
     show: (options: ToastOptions) => void;
@@ -103,7 +104,7 @@ function Toast({ currentToast }: ToastProps) {
             backgroundColor="#1A1A24"
             borderColor={borderColor}
             border={["left", "right"]}
-        // add split border
+            customBorderChars={SplitBorderChars}
         >
             <box flexDirection="column" gap={1} width="100%">
                 <text fg="#E1E1E1" wrapMode="word" width="100%">{currentToast.message}</text>
