@@ -83,4 +83,25 @@ export function KeyboardLayerProvider({
 
         renderer.destroy();
     });
-}
+
+    return (
+        <KeyboardLayerContext.Provider
+            value={{
+                push,
+                pop,
+                isTopLayer,
+                setResponder,
+            }}
+        >
+            {children}
+        </KeyboardLayerContext.Provider>
+    );
+};
+
+export function useKeyboardLayer() {
+    const context = useContext(KeyboardLayerContext);
+    if (!context) {
+        throw new Error("use KeyboardLayer must be used within a KeyboardLayerProvider");
+    }
+    return context;
+};
