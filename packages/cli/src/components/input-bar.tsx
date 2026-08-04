@@ -155,7 +155,7 @@ export function InputBar({ onSubmit, disabled }: Props) {
           )}
           <textarea
             ref={textareaRef}
-            focused={!disabled}
+            focused={!disabled && (isTopLayer("base") || isTopLayer("command"))}
             keyBindings={TEXTAREA_KEY_BINDINGS}
             onContentChange={handleTextareaContentChange}
             placeholder={`start whipping...!`}
